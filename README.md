@@ -11,6 +11,7 @@ X (Data inserted into model):
 - Time since last message
 - Whether previous message was from user or sender
 - Emotion (would need NLP)
+- Percantage of letters that are capital letters
 
 
 Y (Data outputted by model / testing data):

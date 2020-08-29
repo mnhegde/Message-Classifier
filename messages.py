@@ -1,14 +1,12 @@
 import pandas as pd
 import numpy as np
 import string
+from datetime import datetime, timedelta
 
 def getMsgData():
-    data = []
-    x = []
-    y = []
-    replytime = []
-    avgwordlength = []
-    percentCapLetters = []
+    data, x, y, replytime, avgwordlength, percentCapLetters = [], [], [], [], [], []
+    timeFormat = '%d-%b-%y %I:%M %p'
+
     csvdata = pd.read_csv('data/Direct_Messages_-_Private_-_MH_630894986279256074.csv', names=[
                           'AuthorID', 'Author', 'Date', 'Content', 'Attachments', 'Reactions'], sep=",", skiprows=1)
 
@@ -19,28 +17,18 @@ def getMsgData():
 
     #this is very inefficient. Found method to convert strings stored in csv to datetime objs, would should be math easier and more efficient
     for i in range(len(csvdata)):
-        if (i != 0):
-            currentmsg = timestamp[i].split(" ")
-            prevmsg = timestamp[i - 1].split(" ")
-            msgtime = currentmsg[1].split(":")
-            prevtime = prevmsg[1].split(":")
-            if (currentmsg[0] == prevmsg[0] and currentmsg[2] == prevmsg[2]):
-                if (int(msgtime[1]) >= 10):
-                    msgreplytime = int(msgtime[1]) - int(prevtime[1])
-                    if (abs(msgreplytime) <= 10):
-                        replytime.append(msgreplytime)
-                        y.append('Priority')
-                else:
-                    msgreplytime = 60 - (10 - int(msgtime[1]))
-                    if (msgreplytime == int(prevtime[1])):
-                        replytime.append(msgreplytime)
-                        y.append('Priority')
+        if (i == 0):
+            msgtime = datetime.strptime(timestamp[i], timeFormat)
+            prevtime = datetime.strptime(timestamp[i - 1], timeFormat)
+            msgReplyTime = msgtime - prevtime
+            replytime.append(msgReplyTime)
+            if (msgReplyTime <= timedelta(minutes=10)):
+                y.append('Priority')
             else:
-                replytime.append(0)
                 y.append('Nonpriority')
         else:
-            y.append('Priority')
             replytime.append(0)
+            y.append('Priority')
         
         word = csvdata['Content'][i]
         if (type(word) == str):
@@ -57,12 +45,11 @@ def getMsgData():
             avgwordlength.append(0)
             percentCapLetters.append(0)
 
-
-    npa = np.asarray(replytime, dtype=np.int)
+    npa = np.asarray(replytime)
     x.append(npa)
-    npa = np.asarray(avgwordlength, dtype=np.int)
+    npa = np.asarray(avgwordlength)
     x.append(npa)
-    npa = np.asarray(percentCapLetters, dtype=np.float32)
+    npa = np.asarray(percentCapLetters)
     x.append(npa)
 
     data = formatFeatures(x, y)
@@ -70,7 +57,6 @@ def getMsgData():
 
 def formatFeatures(x, y):
     data = []
-    print(len(x[6]))
     for i in range(len(y)):
         msgdata = []
         msgdata.append(x[0][i])

@@ -1,7 +1,7 @@
 # Message-Classifier
 
 Features:
--Text Length
+- Text Length
 - Sender
 - Avg word length
 - Whether it has attachments

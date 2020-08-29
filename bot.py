@@ -1,4 +1,5 @@
 import discord
+import config
 #import model_creator as model
 client = discord.Client()
 
@@ -64,4 +65,4 @@ async def on_message(message):
     if message.content.startswith('?help'):
         await message.channel.send('If someone mentions someone I send the person whose mentioned a message about the priority of their mention!')
 
-client.run("TOKEN HERE")
+client.run(config.BOT_TOKEN)

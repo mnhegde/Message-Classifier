@@ -6,5 +6,6 @@ Features:
 - Avg word length
 - Whether it has attachments
 - Time it was sent
-- Replay time
+- Reply time
 - User's history with sender
+- Emotion (would need NLP)

@@ -53,18 +53,15 @@ def getMsgData():
     x.append(npa)
 
     data = formatFeatures(x, y)
+    print(data)
     return data
 
 def formatFeatures(x, y):
     data = []
     for i in range(len(y)):
         msgdata = []
-        msgdata.append(x[0][i])
-        msgdata.append(x[1][i])
-        msgdata.append(x[2][i])
-        msgdata.append(x[3][i])
-        msgdata.append(x[4][i])
-        msgdata.append(x[5][i])
+        for j in range(9):
+            msgdata.append(x[j][i])
         msgdata.append(y[i])
         data.append(msgdata)
 

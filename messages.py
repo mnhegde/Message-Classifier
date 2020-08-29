@@ -2,17 +2,6 @@ import pandas as pd
 import numpy as np
 import string
 
-
-class messageData():
-    def __init__(self, user, userid, textLength, time, replyTime, attachments):
-        self.user = user
-        self.userid = userid
-        self.length = textLength
-        self.timestamp = time
-        self.replyTime = replyTime
-        self.attachments = attachments
-
-
 def saveMessages():
     data = []
     x = []

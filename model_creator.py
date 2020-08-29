@@ -25,7 +25,7 @@ message_classifier_model = MLPClassifier(alpha=0.01,
                                         epsilon=1e-08, 
                                         hidden_layer_sizes=(300,), 
                                         learning_rate='adaptive', 
-                                        max_iter=500)
+                                        max_iter=50000)
 
 #model training
 message_classifier_model.fit(x_train,y_train)

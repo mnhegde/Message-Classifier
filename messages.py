@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import string
 
-def saveMessages():
+def getMsgData():
     data = []
     x = []
     y = []
@@ -17,6 +17,7 @@ def saveMessages():
 
     timestamp = x[2]
 
+    #this is very inefficient. Found method to convert strings stored in csv to datetime objs, would should be math easier and more efficient
     for i in range(len(csvdata)):
         if (i != 0):
             currentmsg = timestamp[i].split(" ")
@@ -35,9 +36,11 @@ def saveMessages():
                         replytime.append(msgreplytime)
                         y.append('Priority')
             else:
+                replytime.append(0)
                 y.append('Nonpriority')
         else:
             y.append('Priority')
+            replytime.append(0)
         
         word = csvdata['Content'][i]
         if (type(word) == str):
@@ -52,8 +55,8 @@ def saveMessages():
             percentCapLetters.append(percentCapital)
         else:
             avgwordlength.append(0)
+            percentCapLetters.append(0)
 
-            
 
     npa = np.asarray(replytime, dtype=np.int)
     x.append(npa)
@@ -62,9 +65,23 @@ def saveMessages():
     npa = np.asarray(percentCapLetters, dtype=np.float32)
     x.append(npa)
 
-    data.append(x)
-    data.append(y)
+    data = formatFeatures(x, y)
+    return data
+
+def formatFeatures(x, y):
+    data = []
+    print(len(x[6]))
+    for i in range(len(y)):
+        msgdata = []
+        msgdata.append(x[0][i])
+        msgdata.append(x[1][i])
+        msgdata.append(x[2][i])
+        msgdata.append(x[3][i])
+        msgdata.append(x[4][i])
+        msgdata.append(x[5][i])
+        msgdata.append(y[i])
+        data.append(msgdata)
 
     return data
 
-saveMessages()
+getMsgData()

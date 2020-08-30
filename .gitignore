@@ -125,6 +125,8 @@ venv.bak/
 .dmypy.json
 dmypy.json
 .vscode/settings.json
+data\Direct_Messages_-_Private_-_MH_630894986279256074.csv
+data\Direct_Messages_-_Group_-_Brahmin_Bourgeoisie_692931167388696576.csv
 
 # Pyre type checker
 .pyre/

@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 import pickle
+from messages import getMsgData
 
 def open_batch_data(filename):
     with open (filename, 'rb') as fp:
@@ -13,9 +14,13 @@ def overwrite_model_file():
     with open('color_model.pkl', 'wb') as output:  # Overwrites any existing file.
         pickle.dump(message_classifier_model, output, pickle.HIGHEST_PROTOCOL)
         print("file overwrited")
- 
-x_train = 0 #the features
-y_train = 0 #the classifiers
+
+data = getMsgData()
+
+x_train = data[0] #the features
+y_train = data[1] #the classifiers
+
+print(x_train[0])
 
 batch_size = len(y_train)
 

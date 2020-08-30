@@ -53,7 +53,26 @@ def getMsgData():
     x.append(npa)
 
     data = formatFeatures(x, y)
-    print(data)
+
+    #to add y list to data data has to be given an extra dimension
+    data = [data]
+
+    #Removing both nans because it would confuse the model fit
+    #also removed the first number id because it is the same as the names listed
+    #also removed the text because it is just meaningless bleeps and boops
+    for r in range(len(data[0])):
+        for g in range(5):
+            data[0][r].pop(1)
+            
+    #This section is the integration of classifiers into their own section
+    data.append([])
+    for r in range(len(data[0])):
+        #this adds the respective classifier to the y section of data
+        data[1].append(data[0][r][4])
+
+        #this removes the classifier from the x section that should just be features
+        data[0][r].pop(4)
+
     return data
 
 def formatFeatures(x, y):

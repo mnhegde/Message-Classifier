@@ -70,7 +70,7 @@ async def on_message(message):
     await message.add_reaction(thumbsUp)
     await message.add_reaction(thumbsDown)
     for member in message.mentions:
-        [[pastMessageTimes[member]],[avgWordLength],[percentUppercaseLetters],[len(words)]]
+        [[pastMessageTimes[member].total_seconds()/60],[avgWordLength],[percentUppercaseLetters],[len(words)]]
         dm =  "You were mentioned in **"+  message.channel.name + "** on server **" + message.guild.name + "** by **" +str(member)+  "** the message has a priority of **"+"**!"
         await discord.User.send(member,dm)
         

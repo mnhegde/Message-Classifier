@@ -60,10 +60,6 @@ async def on_message(message):
                 pastMessageTimes.append(pastMessages[msgs].created_at)
                 if len(pastMessageTimes) == len(message.raw_mentions):
                     break
-            else:
-                pastMessageTimes.append(datetime.datetime.now())
-                if len(pastMessageTimes) == len(message.raw_mentions):
-                    break
         break
 
     for i in range(len(pastMessageTimes)):

@@ -78,7 +78,7 @@ def getMsgData():
         data[0][r].pop(len(data[0][r])-1)
 
     #format of X:
-    #["time since last message","avg word length", "% of letters that are capital" ]
+    #["time since last message","avg word length", "% of letters that are capital", "word count" ]
 
     return data
 

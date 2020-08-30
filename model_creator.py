@@ -21,7 +21,7 @@ x_train = data[0] #the features
 y_train = data[1] #the classifiers
 
 #format of x_train:
-#["time since last message","avg word length", "% of letters that are capital" ]
+#["time since last message","avg word length", "% of letters that are capital","word count"]
 
 batch_size = len(y_train)
 

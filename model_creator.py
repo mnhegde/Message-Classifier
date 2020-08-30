@@ -20,8 +20,6 @@ data = getMsgData()
 x_train = data[0] #the features
 y_train = data[1] #the classifiers
 
-print(x_train[0])
-
 batch_size = len(y_train)
 
 #model creation

@@ -19,8 +19,8 @@ def getMsgData():
     for i in range(len(csvdata)):
         if (i != 0):
             msgtime = datetime.strptime(timestamp[i], timeFormat)
-            prevtime = datetime.strptime(timestamp[i - 1], timeFormat)
-            msgReplyTime = msgtime - prevtime
+            nexttime = datetime.strptime(timestamp[i + 1], timeFormat)
+            msgReplyTime = nexttime - msgtime
             replytime.append(msgReplyTime.total_seconds()/60)
             if (msgReplyTime <= timedelta(minutes=10)):
                 y.append('Priority')

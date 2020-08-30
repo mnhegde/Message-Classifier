@@ -77,8 +77,9 @@ async def on_message(message):
     await message.channel.send("React with thumbs up or down if my priority prediction was correct or not!")
     await message.add_reaction(thumbsUp)
     await message.add_reaction(thumbsDown)
-    for member in message.mentions:
-        features = [pastMessageTimes[member].total_seconds()/60,avgWordLength,percentUppercaseLetters,len(words)]
+    for i in range(len(message.mentions)):
+        member = message.mentions[i]
+        features = [pastMessageTimes[i].total_seconds()/60,avgWordLength,percentUppercaseLetters,len(words)]
         prediction = message_classifier_model.predict([features])
         dm =  "You were mentioned in **"+  message.channel.name + "** on server **" + message.guild.name + "** by **" +str(member)+  "** the message has a priority of **"+prediction[0]+"**!"
         await discord.User.send(member,dm)

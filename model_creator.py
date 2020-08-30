@@ -37,3 +37,5 @@ message_classifier_model.fit(x_train,y_train)
 x_pred = message_classifier_model.predict(x_train)
 accuracy=accuracy_score(y_true=y_train, y_pred=x_pred)
 print("Accuracy: {:.2f}%".format(accuracy*100))
+
+overwrite_model_file()

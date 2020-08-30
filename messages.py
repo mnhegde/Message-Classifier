@@ -65,8 +65,8 @@ def getMsgData():
     #also removed the first number id because it is the same as the names listed
     #also removed the text because it is just meaningless bleeps and boops
     for r in range(len(data[0])):
-        for g in range(5):
-            data[0][r].pop(1)
+        for g in range(6):
+            data[0][r].pop(0)
             
     #This section is the integration of classifiers into their own section
     data.append([])
@@ -77,6 +77,8 @@ def getMsgData():
         #this removes the classifier from the x section that should just be features
         data[0][r].pop(len(data[0][r])-1)
 
+    #format of X:
+    #["time since last message","avg word length", "% of letters that are capital" ]
 
     return data
 

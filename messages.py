@@ -17,11 +17,11 @@ def getMsgData():
 
     #this is very inefficient. Found method to convert strings stored in csv to datetime objs, would should be math easier and more efficient
     for i in range(len(csvdata)):
-        if (i == 0):
+        if (i != 0):
             msgtime = datetime.strptime(timestamp[i], timeFormat)
             prevtime = datetime.strptime(timestamp[i - 1], timeFormat)
             msgReplyTime = msgtime - prevtime
-            replytime.append(msgReplyTime)
+            replytime.append(msgReplyTime.total_seconds()/60)
             if (msgReplyTime <= timedelta(minutes=10)):
                 y.append('Priority')
             else:
@@ -55,7 +55,7 @@ def getMsgData():
     x.append(npa)
     npa = np.asarray(wordcount)
     x.append(npa)
-
+    
     data = formatFeatures(x, y)
 
     #to add y list to data data has to be given an extra dimension

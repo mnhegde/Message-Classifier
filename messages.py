@@ -16,7 +16,7 @@ def getMsgData():
     timestamp = x[2]
 
     #this is very inefficient. Found method to convert strings stored in csv to datetime objs, would should be math easier and more efficient
-    for i in range(len(csvdata)):
+    for i in range(len(csvdata)-1):
         if (i != 0):
             msgtime = datetime.strptime(timestamp[i], timeFormat)
             nexttime = datetime.strptime(timestamp[i + 1], timeFormat)

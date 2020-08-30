@@ -4,7 +4,7 @@ import string
 from datetime import datetime, timedelta
 
 def getMsgData():
-    data, x, y, replytime, avgwordlength, percentCapLetters = [], [], [], [], [], []
+    data, x, y, replytime, avgwordlength, percentCapLetters, wordcount = [], [], [], [], [], [], []
     timeFormat = '%d-%b-%y %I:%M %p'
 
     csvdata = pd.read_csv('data/Direct_Messages_-_Private_-_MH_630894986279256074.csv', names=[
@@ -33,6 +33,7 @@ def getMsgData():
         word = csvdata['Content'][i]
         if (type(word) == str):
             words = word.split(" ")
+            wordcount.append(len(words))
             sum = 0
             for i in range(len(words)):
                 sum += len(words[i])
@@ -42,6 +43,7 @@ def getMsgData():
             percentCapital = len([letter for letter in word if letter.isupper()]) / len(word)
             percentCapLetters.append(percentCapital)
         else:
+            wordcount.append(0)
             avgwordlength.append(0)
             percentCapLetters.append(0)
 
@@ -50,6 +52,8 @@ def getMsgData():
     npa = np.asarray(avgwordlength)
     x.append(npa)
     npa = np.asarray(percentCapLetters)
+    x.append(npa)
+    npa = np.asarray(wordcount)
     x.append(npa)
 
     data = formatFeatures(x, y)
@@ -68,10 +72,11 @@ def getMsgData():
     data.append([])
     for r in range(len(data[0])):
         #this adds the respective classifier to the y section of data
-        data[1].append(data[0][r][4])
+        data[1].append(data[0][r][len(data[0][r])-1])
 
         #this removes the classifier from the x section that should just be features
-        data[0][r].pop(4)
+        data[0][r].pop(len(data[0][r])-1)
+
 
     return data
 
@@ -79,7 +84,7 @@ def formatFeatures(x, y):
     data = []
     for i in range(len(y)):
         msgdata = []
-        for j in range(9):
+        for j in range(len(x)):
             msgdata.append(x[j][i])
         msgdata.append(y[i])
         data.append(msgdata)

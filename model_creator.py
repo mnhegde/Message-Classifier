@@ -11,7 +11,7 @@ def open_batch_data(filename):
         return(batch_data)
 
 def overwrite_model_file():
-    with open('color_model.pkl', 'wb') as output:  # Overwrites any existing file.
+    with open('message_classifier_model.pkl', 'wb') as output:  # Overwrites any existing file.
         pickle.dump(message_classifier_model, output, pickle.HIGHEST_PROTOCOL)
         print("file overwrited")
 

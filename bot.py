@@ -1,7 +1,15 @@
 import discord
 import datetime
 import config
-#import model_creator as model
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import accuracy_score
+import pickle
+from model_creator import open_batch_data
+
+message_classifier_model = open_batch_data('message_classifier_model.pkl')
+
 client = discord.Client()
 
 @client.event
@@ -70,8 +78,9 @@ async def on_message(message):
     await message.add_reaction(thumbsUp)
     await message.add_reaction(thumbsDown)
     for member in message.mentions:
-        [[pastMessageTimes[member].total_seconds()/60],[avgWordLength],[percentUppercaseLetters],[len(words)]]
-        dm =  "You were mentioned in **"+  message.channel.name + "** on server **" + message.guild.name + "** by **" +str(member)+  "** the message has a priority of **"+"**!"
+        features = [pastMessageTimes[member].total_seconds()/60,avgWordLength,percentUppercaseLetters,len(words)]
+        prediction = message_classifier_model.predict([features])
+        dm =  "You were mentioned in **"+  message.channel.name + "** on server **" + message.guild.name + "** by **" +str(member)+  "** the message has a priority of **"+prediction[0]+"**!"
         await discord.User.send(member,dm)
         
 

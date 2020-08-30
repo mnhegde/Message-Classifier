@@ -20,6 +20,9 @@ data = getMsgData()
 x_train = data[0] #the features
 y_train = data[1] #the classifiers
 
+#format of x_train:
+#["time since last message","avg word length", "% of letters that are capital","word count"]
+
 batch_size = len(y_train)
 
 #model creation
@@ -38,4 +41,4 @@ x_pred = message_classifier_model.predict(x_train)
 accuracy=accuracy_score(y_true=y_train, y_pred=x_pred)
 print("Accuracy: {:.2f}%".format(accuracy*100))
 
-overwrite_model_file()
+#overwrite_model_file()
